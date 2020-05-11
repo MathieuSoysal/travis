@@ -18,10 +18,10 @@ matrix:
         apt:
           # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
           sources:
-            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+	  	- ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
           packages:
-            - libstdc++6
-            - fonts-droid
+	  	- libstdc++6
+	  	- fonts-droid
       before_script:
         - git clone https://github.com/flutter/flutter.git -b alpha --depth 1
       script:
@@ -30,41 +30,41 @@ matrix:
     # Builds an APK.
     - env: JOB=APK
       os: linux
-	language: android
-	licenses:
+      language: android
+      licenses:
 	  - 'android-sdk-preview-license-.+'
 	  - 'android-sdk-license-.+'
 	  - 'google-gdk-license-.+'
-	android:
-	  components:
-		- tools
-		- platform-tools
-		- build-tools-28.0.3
-		- android-28
-		- sys-img-armeabi-v7a-google_apis-25
-		- extra-android-m2repository
-		- extra-google-m2repository
-		- extra-google-android-support
-	jdk: oraclejdk8
-	sudo: false
-	addons:
+      android:
+      	components:
+	  	- tools
+	  	- platform-tools
+	  	- build-tools-28.0.3
+	  	- android-28
+	  	- sys-img-armeabi-v7a-google_apis-25
+	  	- extra-android-m2repository
+	  	- extra-google-m2repository
+	  	- extra-google-android-support
+      jdk: oraclejdk8
+      sudo: false
+      addons:
 	  apt:
 		# Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
-		sources:
-		  - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
-		packages:
-		  - libstdc++6
-		  - fonts-droid
-	before_script:
-	  - wget https://services.gradle.org/distributions/gradle-6.4-bin.zip
-	  - unzip -qq gradle-6.4-bin.zip
-	  - export GRADLE_HOME=$PWD/gradle-6.4
-	  - export PATH=$GRADLE_HOME/bin:$PATH
-	  - git clone https://github.com/flutter/flutter.git -b stable
-	  - ./flutter/bin/flutter doctor
-	script:
-	  - ./flutter/bin/flutter -v build apk
-	  - ./flutter/bin/flutter build appbundle --target-platform android-arm,android-arm64,android-x64
+	     sources:
+	  	- ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+	     packages:
+	  	- libstdc++6
+	  	- fonts-droid
+      before_script:
+        - wget https://services.gradle.org/distributions/gradle-6.4-bin.zip
+        - unzip -qq gradle-6.4-bin.zip
+        - export GRADLE_HOME=$PWD/gradle-6.4
+        - export PATH=$GRADLE_HOME/bin:$PATH
+        - git clone https://github.com/flutter/flutter.git -b stable
+        - ./flutter/bin/flutter doctor
+      script:
+        - ./flutter/bin/flutter -v build apk
+        - ./flutter/bin/flutter build appbundle --target-platform android-arm,android-arm64,android-x64
 
 cache:
   directories:
@@ -73,18 +73,18 @@ cache:
     # Builds an IPA.
     - env: JOB=IPA
       os: osx
-	  language: generic
-	  osx_image: xcode11.3
-	  before_script:
-	    - pip install six
-	    - brew update
-	    - brew install --HEAD libimobiledevice
-	    - brew install ideviceinstaller
-	    - brew install ios-deploy
-	    - git clone https://github.com/flutter/flutter.git -b stable
-	    - ./flutter/bin/flutter doctor
-	  script:
-	    - ./flutter/bin/flutter -v build ios --no-codesign
+      language: generic
+      osx_image: xcode11.3
+      before_script:
+        - pip install six
+        - brew update
+        - brew install --HEAD libimobiledevice
+        - brew install ideviceinstaller
+        - brew install ios-deploy
+        - git clone https://github.com/flutter/flutter.git -b stable
+        - ./flutter/bin/flutter doctor
+      script:
+        - ./flutter/bin/flutter -v build ios --no-codesign
 
 cache:
   directories:
